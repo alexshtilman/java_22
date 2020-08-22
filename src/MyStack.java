@@ -1,45 +1,35 @@
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class MyStack {
-	private Stack<Integer> arr = new Stack<Integer>();
-	private int max = 0;
+public class MyStack extends LinkedList {
+	private LinkedList<Integer> help = new LinkedList<Integer>();
 
 	public void push(int number) {
-		max = number > max ? number : max;
-		arr.push(number);
+		if (help.isEmpty() || number >= help.getLast())
+			help.add(number);
+		add(number);
 	}
 
 	public void clear() {
-		max = 0;
-		arr.clear();
+		super.clear();
+		help.clear();
 	}
 
-	public int pop() {
+	public Object pop() {
 		if (isEmpty()) {
 			throw new NoSuchElementException();
-		} else {
-			int last = arr.pop();
-			if (isEmpty()) {
-				max = 0;
-
-			} else {
-				int num = arr.lastElement();
-				max = num > max ? num : max;
-			}
-			return last;
 		}
-
-	}
-
-	public boolean isEmpty() {
-		return arr.empty();
+		int last = (int) removeLast();
+		if (last == help.getLast())
+			help.removeLast();
+		return last;
 	}
 
 	public int getMax() {
 		if (isEmpty())
 			throw new NoSuchElementException();
-		return max;
+		return (int) help.getLast();
 	}
 }
