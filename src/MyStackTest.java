@@ -71,5 +71,14 @@ class MyStackTest {
 			listInt.push(i);
 		}
 		assertEquals(9, listInt.getMax());
+		listInt.clear();
+		int expected5[] = { 1, -2, 6, -4, 8, -3, 9, 0 };
+		for (int i : expected5) {
+			listInt.push(i);
+		}
+		assertEquals(9, listInt.getMax());
+		listInt.pop();
+		listInt.pop();
+		assertEquals(8, listInt.getMax());
 	}
 }
